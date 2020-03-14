@@ -1,0 +1,2 @@
+/myweb/index.do=net.action.Index
+/myweb/bbs2/bbsform.do=net.bbs2.BbsForm

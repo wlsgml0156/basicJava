@@ -1,0 +1,50 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>elTest2.jsp</title>
+</head>
+<body>
+<h3>* EL의 Collection들 *</h3>
+<%
+  //웹의 내장변수  
+  pageContext.setAttribute("kor", 100);
+  request.setAttribute("eng", 200);
+  session.setAttribute("mat", 300);
+  application.setAttribute("aver", 400);
+%>
+
+1)pageContext영역<br>
+JSP : <%=pageContext.getAttribute("kor")%><br>
+EL  : ${pageScope.kor}<br>
+<hr>
+
+2)request영역<br>
+JSP : <%=request.getAttribute("eng")%><br>
+EL  : ${requestScope.eng}<br>
+<hr>
+
+3)session영역<br>
+JSP : <%=session.getAttribute("mat")%><br>
+EL  : ${sessionScope.mat}<br>
+<hr>
+
+4)application영역<br>
+JSP : <%=application.getAttribute("aver")%><br>
+EL  : ${applicationScope.kor}<br>
+
+<hr>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+/* mystyle.css */
+/* 한글인코딩 utf-8 */
+
+*{font-family:"굴림체"; font-size:15px;}
+body{
+      background-color:white;
+      margin:0;         /*바깥쪽 여백*/
+	  padding:0;        /*안쪽 여백*/
+	  color:black;
+	  line-height:10px; /*줄간격*/
+    }
+img  {border:0;}
+table{border:0;}
+
+.line{border:1px solid black;}
+
+#myLayer {width:200px;
+          height:200px;
+		  background:yellow;}

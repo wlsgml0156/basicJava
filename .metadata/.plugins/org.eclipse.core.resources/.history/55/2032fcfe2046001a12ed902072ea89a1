@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp"%>
+
+<!-- 본문 시작 bbsContent.jsp-->
+<strong>글내용보기</strong>
+<br/><br/>
+<form>
+<table class="table">
+<tr>
+  <td>글번호</td>
+  <td>${article.num }</td>
+  <td>조회수</td>
+  <td>${article.readcount }</td>
+</tr>
+<tr>
+  <td>작성자</td>
+  <td>${article.writer }</td>
+  <td>작성일</td>
+  <td>${article.reg_date }</td>
+</tr>
+<tr>
+  <td>글제목</td>
+  <td colspan="3">${article.subject }</td>
+</tr>
+<tr>
+  <td>글내용</td>
+  <td colspan=3>
+       <%//치환 변수 선언
+       //pageContext.setAttribute("cr", "\r"); //Space
+       //pageContext.setAttribute("crcn", "\r\n"); //Space, Enter
+       pageContext.setAttribute("cn", "\n"); //Enter
+       pageContext.setAttribute("br", "<br/>"); //br 태그
+       %>
+       <%-- ${article.content }--%>
+       ${fn:replace(article.content, cn, '<br/>') }    <!-- \n값이 <br/>값으로 바꿔서 출력하게함 -->  
+  </td>
+</tr>
+<tr>
+  <td colspan="4">
+    <input type="button" value="글수정" onclick="document.location.href='./bbsupdateform.do?num=${article.num}&pageNum=${pageNum }'">
+    <input type="button" value="글삭제" onclick="document.location.href='./bbsdeleteform.do?num=${article.num}&pageNum=${pageNum }'">
+    <input type="button" value="답변"   onclick="document.location.href='./bbsform.do?num=${article.num}&ref=${article.ref }&re_step=${article.re_step }&re_level=${article.re_level }'">
+    <input type="button" value="목록"   onclick="document.location.href='./bbslist.do?pageNum=${pageNum }'">
+  </td>
+</tr>
+</table>
+</form>
+<!-- 본문 끝 -->			
+
+<%@ include file="../footer.jsp" %>

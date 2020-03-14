@@ -1,0 +1,8 @@
+127.0.0.1 - - [05/Feb/2020:09:41:16 +0900] "GET / HTTP/1.1" 404 750
+127.0.0.1 - - [05/Feb/2020:09:41:19 +0900] "GET /myweb/index.jsp HTTP/1.1" 200 3994
+127.0.0.1 - - [05/Feb/2020:09:41:19 +0900] "GET /myweb/images/cosmos1.jpg HTTP/1.1" 200 75453
+127.0.0.1 - - [05/Feb/2020:09:41:19 +0900] "GET /myweb/js/myscript.js HTTP/1.1" 200 3613
+127.0.0.1 - - [05/Feb/2020:09:41:19 +0900] "GET /myweb/css/mystyle.css HTTP/1.1" 304 -
+127.0.0.1 - - [05/Feb/2020:09:41:19 +0900] "GET /favicon.ico HTTP/1.1" 404 761
+127.0.0.1 - - [05/Feb/2020:09:43:48 +0900] "GET /myweb/notice/noticeList.jsp HTTP/1.1" 404 785
+127.0.0.1 - - [05/Feb/2020:09:45:33 +0900] "GET /myweb/bbs2/bbslist.do HTTP/1.1" 500 1795

@@ -1,0 +1,68 @@
+package net.control;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class LifeCycle extends HttpServlet {
+/*
+  class GenericServlet{}
+  class HttpServlet extends GenericServlet{}  
+  
+  HttpServlet생명주기-----------------------------
+     init() 서블릿이 호출되면 1번만 호출
+     
+           -> service() 사용자가 요청할때마다 호출
+           -> service()
+           -> service()
+           
+     destroy() 서버가 중지되면 1번만 호출    
+  -----------------------------------------------
+  
+  web.xml에 LifeCycle서블릿 등록
+  
+  결과확인
+  ->http://localhost:8090/mvcTest/life.do
+  
+ */
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    // method=get방식 요청되면 호출
+    super.doGet(req, resp);
+    System.out.println("doGet()호출...");
+  }//doGet() end
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    // method=post방식 요청되면 호출
+    super.doPost(req, resp);
+    System.out.println("doPost()호출...");
+  }//doPost() end
+
+  @Override
+  protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    //method=get 방식으로 요청되면 doGet()호출
+    //method=post방식으로 요청되면 doPost()호출
+    super.service(req, resp);
+    System.out.println("service()호출...");
+  }//service() end
+
+  @Override
+  public void destroy() {
+    //서버가 중지되면 1번만 자동호출
+    super.destroy();
+    System.out.println("destroy()호출...");
+  }//destroy() end
+
+  @Override
+  public void init() throws ServletException {
+    //서블릿이 최초로 호출될때 1번만 자동 호출
+    //초기환경 구축할때 사용
+    super.init();
+    System.out.println("init()호출...");
+  }//init() end
+  
+}//class end

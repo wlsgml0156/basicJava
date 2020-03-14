@@ -1,0 +1,7 @@
+package net.control;
+
+import javax.servlet.http.HttpServlet;
+
+public class Welcome extends HttpServlet {
+
+}

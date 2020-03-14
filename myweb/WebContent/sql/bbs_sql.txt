@@ -1,0 +1,145 @@
+-- bbs_sql.txt
+-- 답변형게시판(댓글)
+create table tb_bbs(
+  bbsno    number(5)       not null -- 일련번호 -99999~99999
+ ,wname    varchar2(20)    not null -- 작성자
+ ,subject  varchar2(100)   not null -- 글제목
+ ,content  varchar2(2000)  not null -- 글내용
+ ,passwd   varchar2(10)    not null -- 글비밀번호
+ ,readcnt  number(5)       default 0 not null -- 글조회수
+ ,regdt    date            default  sysdate   -- 글작성일
+ ,grpno    number(5)       not null  -- 글 그룹번호
+ ,indent   number(5)       default 0 -- 들여쓰기
+ ,ansnum   number(5)       default 0 -- 글순서
+ ,ip       varchar2(15)    not null  -- 글 IP
+ ,primary key(bbsno)                 --bbsno 기본키 
+);
+
+-- 새글쓰기
+bbsno      : max(bbsno)+1
+wname, subject, content, passwd : 사용자입력
+default 값 : readcnt, regdt, indent, ansnum
+grpno      : max(bbsno)+1
+ip         : request내부객체에서 사용자PC의 IP정보를 가져옴
+
+--행추가 테스트
+insert into tb_bbs(bbsno, wname, subject, content, passwd, grpno, ip)
+values(
+      (select nvl(max(bbsno),0)+1 from tb_bbs)
+      ,'손흥민'
+      ,'오필승코리아'
+      ,'무궁화 꽃이 피었습니다'
+      ,'1234'
+      ,(select nvl(max(bbsno),0)+1 from tb_bbs)
+      ,'127.0.0.1' 
+);
+
+--행갯수
+select count(*) from tb_bbs;
+
+--명령어 완료 
+commit;
+
+
+--조회수 증가
+update tb_bbs
+set readcnt=readcnt+1
+where bbsno=?
+
+
+--행삭제
+delete from tb_bbs
+where bbsno=? and passwd=?
+
+
+--검색
+--제목에 '무궁화'가 포함된 행을 조회하시오
+select subject
+from tb_bbs
+where subject like '%무궁화%';
+
+
+--제목 출력 칸수 조절하기
+col subject for a20;
+
+--페이징(rownum 줄번호 활용)
+--목록중에서 2페이지 조회
+--(단, 전체 글갯수 11건
+       한페이지에 5줄 기준)
+       
+1)
+select subject, grpno, ansnum
+from tb_bbs
+order by grpno desc, ansnum asc;      
+       
+       
+2) rownum추가 -- 줄번호까지 정렬됨
+select rownum, subject, grpno, ansnum
+from tb_bbs
+order by grpno desc, ansnum asc;      
+       
+       
+3) 1)번 SQL문을 셀프조인후 나중에 rownum추가       
+select rownum, subject, grpno, ansnum       
+from(       
+     select subject, grpno, ansnum
+     from tb_bbs
+     order by grpno desc, ansnum asc       
+);  
+       
+       
+4) 줄번호 1~5조회(1페이지)
+select rownum, subject, grpno, ansnum       
+from(       
+     select subject, grpno, ansnum
+     from tb_bbs
+     order by grpno desc, ansnum asc       
+    )
+where rownum>=1 and rownum<=5;     
+       
+
+5) 줄번호 6~10조회(2페이지) ->조회안됨
+select rownum, subject, grpno, ansnum       
+from(       
+     select subject, grpno, ansnum
+     from tb_bbs
+     order by grpno desc, ansnum asc       
+    )
+where rownum>=6 and rownum<=10;
+
+
+6) 줄번호가 있는 3)번 테이블을 한번 더 셀프조인 후 
+	rownum칼럼명을 rnum으로 바꾼다
+select rnum, subject, grpno, ansnum 
+from(	  
+	 select  rownum as rnum, subject, grpno, ansnum  
+	 from(       
+    	 select subject,grpno, ansnum
+    	 from tb_bbs
+     	order by grpno desc, ansnum asc       
+		)
+	)
+where rnum>=6 and rnum<=10;
+
+
+7)  검색+페이징
+예)제목에서 '솔데스크'검색해서 2페이지 출력
+select rnum, subject, grpno, ansnum 
+from(	  
+	 select  rownum as rnum, subject, grpno, ansnum  
+	 from(       
+    	 select subject,grpno, ansnum
+    	 from tb_bbs
+    	 where subject like '%솔데스크%'
+     	 order by grpno desc, ansnum asc       
+		)
+	)
+where rnum>=6 and rnum<=10;
+
+
+
+
+
+
+
+

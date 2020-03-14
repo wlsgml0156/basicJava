@@ -1,0 +1,63 @@
+-- sungjuk_sql.txt
+
+-- 성적테이블 삭제
+drop table sungjuk;
+
+-- 성적테이블 생성
+create table sungjuk(
+   sno   int         primary key                  
+  ,uname varchar(50) not null                     
+  ,kor   int         check(kor between 0 and 100) 
+  ,eng   int         check(eng between 0 and 100)
+  ,mat   int         check(mat between 0 and 100)
+  ,tot   int         default 0                    
+  ,aver  int         default 0
+  ,addr  varchar(20) check(addr in ('Seoul','Jeju','Busan'))
+  ,wdate date        default sysdate
+);
+
+-- 명령어 완료
+commit;
+
+
+-- 전체 행 갯수 조회
+select count(*) from sungjuk;
+
+-- 추가(Create)
+
+
+-- 목록(Read)
+select *
+from sungjuk
+order by sno desc;
+
+
+-- 상세보기(Read)
+select *
+from sungjuk
+where sno=2;
+
+
+-- 삭제
+delete from sungjuk
+where sno=2;
+
+-- 수정
+update sungjuk 
+set uname='대한민국',kor=90,eng=80,mat=50
+where sno=2;
+
+
+create table
+create sequence
+create index
+
+
+
+
+
+
+
+
+
+

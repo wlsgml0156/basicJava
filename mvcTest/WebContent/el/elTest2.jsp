@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>elTest2.jsp</title>
+</head>
+<body>
+<h3>* EL의 Collection들 *</h3>
+<%
+  //웹의 내장변수  
+  pageContext.setAttribute("kor", 100);
+  request.setAttribute("eng", 200);
+  session.setAttribute("mat", 300);
+  application.setAttribute("aver", 400);
+%>
+
+1)pageContext영역<br>
+JSP : <%=pageContext.getAttribute("kor")%><br>
+EL  : ${pageScope.kor}<br>
+<hr>
+
+2)request영역<br>
+JSP : <%=request.getAttribute("eng")%><br>
+EL  : ${requestScope.eng}<br>
+<hr>
+
+3)session영역<br>
+JSP : <%=session.getAttribute("mat")%><br>
+EL  : ${sessionScope.mat}<br>
+<hr>
+
+4)application영역<br>
+JSP : <%=application.getAttribute("aver")%><br>
+EL  : ${applicationScope.aver}<br>
+<hr>
+<!-- 
+    EL에서는 Scope이름을 생략할 수 있다
+    page -> request -> session -> application
+    순차적으로 자동으로 검색
+-->
+kor : ${kor}<br>
+eng : ${eng}<br>
+mat : ${mat}<br>
+aver: ${aver}<br>
+<hr>
+<%  
+  //웹의 내장변수명이 중복되는 경우
+  pageContext.setAttribute("num", 500);
+  request.setAttribute("num", 600);
+  session.setAttribute("num", 700);
+  application.setAttribute("num", 800);
+%>
+<!-- SCOPE명이 생략되면 자동으로
+     작은 영역순으로 찾고,
+     찾으면 더이상 검색하지 않는다 -->
+num : ${num} <!-- 500 -->
+<hr>
+
+<!-- 해당변수가 없을때 : 빈값 -->
+uname : #${uname}~
+
+
+</body>
+</html>
+

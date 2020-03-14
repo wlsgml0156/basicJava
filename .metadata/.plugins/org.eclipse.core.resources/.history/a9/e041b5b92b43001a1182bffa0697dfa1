@@ -1,0 +1,10 @@
+package net.control;
+
+import javax.servlet.http.HttpServlet;
+
+public class Welcome extends HttpServlet {
+  //클래스의 부모가 class     : extends
+  //클래스의 부모가 interface : implements
+  
+  
+}//class end

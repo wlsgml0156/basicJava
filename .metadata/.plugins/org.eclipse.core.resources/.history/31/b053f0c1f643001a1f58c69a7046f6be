@@ -1,0 +1,37 @@
+package net.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class MyController extends HttpServlet {
+
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+
+    String props = config.getInitParameter("propertyConfig");
+    
+  }//init() end  
+  
+  
+  
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    process(req, resp);
+  }//doGet() end
+  
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    process(req, resp);
+  }//doPost() end
+
+  protected void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    
+  }//prcess() end
+  
+  
+}//class end

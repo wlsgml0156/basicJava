@@ -1,0 +1,76 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ include file="ssi.jsp" %>
+<%@ include file="../header.jsp" %>
+<!-- 본문 시작 -->
+*글 수정*<br>
+<p>
+  <a href='bbsForm.jsp'>[글쓰기]</a> &nbsp;&nbsp;
+  <a href='bbsList.jsp'>[목록]</a>
+ </p>
+  <%
+  // 사용자 요청한 정보 가져오기
+  int bbsno= Integer.parseInt(request.getParameter("bbsno"));
+  String passwd = request.getParameter("passwd").trim();
+  dto.setBbsno(bbsno);
+  dto.setPasswd(passwd);
+  
+  
+  dto=dao.updateform(dto);   
+  if(dto==null){
+  		out.println("<script>");
+  		out.println("     alert('비밀번호가 일치하지 않습니다');");
+  		out.println("     window.history.back();");
+  		out.println("</script>");
+  }else{
+%>
+<!-- 값이 url에 잘들어갔는지 보려면 method=post를 get으로 바꿔서 url 확인 -->
+			<form method="post"
+          action="bbsUpdateProc.jsp"
+          onsubmit="return bbsCheck(this)">
+            <input type="hidden" name="bbsno" value="<%=bbsno %>">
+            <input type="hidden" name="col" value="<%=col %>">
+            <input type="hidden" name="word" value="<%=word %>">
+            <input type="hidden" name="nowPage"  value="<%=nowPage%>">
+				<table border="1" cellspacing="0" id="customers">
+				<tr>
+					<th>작성자</th>
+					<td>
+						<input type="text" name="wname"  size="10" maxlength="10" value="<%=dto.getWname() %>" autofocus required>
+					</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>
+						<input type="text" name="subject"  size="20" maxlength="20"
+						         value="<%=dto.getSubject() %>" >
+					</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+					<textarea rows="5" cols="30" class="form-control" name="content" maxlength="300"><%=dto.getContent() %></textarea>
+			
+					</td>
+				</tr>
+				<tr>
+					<th>패스워드</th>
+					<td>
+						<input type="password" name="passwd"   size="10" maxlength="40"
+						         value="<%=dto.getPasswd() %>" >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="수정">
+						<input type="reset"  value="취소">
+					</td>
+				</tr>
+				</table>
+				</form>
+<%              
+ 
+	
+	}//end
+ %>
+<!-- 본문 끝 -->
+<%@ include file="../footer.jsp" %>
